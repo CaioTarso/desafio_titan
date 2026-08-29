@@ -1,9 +1,9 @@
 <?php
     Class Conexao{
-    private $host = 'localhost';
-    private $dbname = 'jm_informatica';
-    private $user = 'root';
-    private $pass = '123456';
+    private $host = "localhost";
+    private $dbname = "jm_informatica";
+    private $user = "root";
+    private $pass = "root";
     
 
 
