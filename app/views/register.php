@@ -3,43 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/login.css">
+    <title>Login</title>
 </head>
 <body>
     <div class="container">
-        <h2>Sistema de Controle de Serviços</h2><br>
-        <p>JM Informática</p>
+        <h1>Sistema de Controle de Serviços</h1>
+        <h2>JM Informática</h2>
+        
+        <div class="info">
+            
+            <form action="/" method="POST">
+            <div class="form-container">
+                
+            <input type="hidden" name="action" value="register">
+
+            <?php if (isset($error)): ?>
+                <p><?= $error ?></p>
+            <?php endif; ?>
+
+            <div class="form-group">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" placeholder="seu nome" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" placeholder="********" required>
+            </div>
+            
+            <div class="bottom ">
+                <button type="submit">Cadastrar</button>
+                <a href="/?page=login">Já tem uma conta? Entrar</a>
+            </div>
+            </div>
+        </form>
     </div>
-
-    <form action="/" method="POST">
-
-        <input type="hidden" name="action" value="register">
-
-        <?php if (isset($error)): ?>
-            <p><?= $error ?></p>
-        <?php endif; ?>
-
-        <div class="form-group">
-            <label for="name">Nome:</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-
-        <div class="form-group">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-
-        <div class="form-group">
-            <label for="password">Senha:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-
-        <div class="bottom ">
-            <button type="submit">Cadastrar</button>
-            <a href="/?page=login">Já tem uma conta? Entrar</a>
-        </div>
-       
-
+</div>
 
 </body>
 </html>
