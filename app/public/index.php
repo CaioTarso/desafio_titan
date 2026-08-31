@@ -3,14 +3,27 @@
 session_start();
 
 require_once '../config/database.php';
+
+
 require_once '../repositories/UserRepository.php';
+require_once '../repositories/ServiceRepository.php';
+
+
+
 require_once '../controllers/AuthController.php';
+require_once '../controllers/ServiceController.php';
 
 $conexao = new Conexao();
 $db = $conexao->conectar();
 
 $userRepository = new UserRepository($db);
 $authController = new AuthController($userRepository);
+
+$serviceRepository = new ServiceRepository($db);
+$serviceController = new ServiceController($serviceRepository);
+
+
+
 
 $page = $_GET['page'] ?? 'login';
 
@@ -58,6 +71,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
     }
 
+    if ($action === 'createservice') {
+
+    if (!isset($_SESSION['user'])) {
+        header('Location: /?page=login');
+        exit;
+    }
+
+        $description = $_POST['description'];
+        $price = $_POST['price'];
+
+        $user_id_user = $_SESSION['user']['id_user'];
+
+        $created = $serviceController->createService(
+            $description,
+            $price,
+            $user_id_user
+        );
+
+        if ($created) {
+            header('Location: /?page=dashboard');
+            exit;
+        }
+
+        $error = "Não foi possível cadastrar o serviço.";
+        $page = 'createservice';
+    }
+
 
         
 }
@@ -74,8 +114,21 @@ if ($page === 'dashboard') {
         exit;
     }
 
+    $services = $serviceController->getAllServices();
+
 
     require_once '../views/dashboard.php';
+    exit;
+}
+
+if ($page === 'createservice') {
+
+    if (!isset($_SESSION['user'])) {
+        header('Location: /?page=login');
+        exit;
+    }
+
+    require_once '../views/createservice.php';
     exit;
 }
 
