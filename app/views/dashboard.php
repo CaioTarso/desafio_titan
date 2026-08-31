@@ -5,18 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>dashboard</title>
 </head>
 <body>
     <header>
-        <h1>JM Informática</h1>
+        <div class="header-icon">
+            <i class="material-icons">computer</i>
+            <h1>JM Informática</h1>
+        </div>
         <h3>Olá, <?= $_SESSION['user']['name'] ?>!</h3>
         <a href="/?page=logout">Sair</a>
     </header>
 
     <div class="container">
         <div class="dash-elements">
-            <h2>Dashboard</h2>
+            <div class="dash-icon">
+                <i class="material-icons">dashboard</i>
+                <h2>Dashboard</h2>
+            </div>
 
             <a class="button-create"  href="/?page=createservice">Criar serviço</a>
 
