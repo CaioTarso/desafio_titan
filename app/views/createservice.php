@@ -65,11 +65,15 @@
 
                     </div>
 
-                    <div class="bottom">
+                    <div class="buttons">
 
-                        <button type="submit">
-                            Cadastrar
+                        <button class="button-save" type="submit">
+                           Cadastrar
                         </button>
+
+                        <a class="button-cancel" href="/?page=dashboard">
+                            Cancelar
+                        </a>
 
                     </div>
 

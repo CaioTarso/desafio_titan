@@ -144,3 +144,8 @@ tbody tr:hover {
     font-size: 15px;
     font-weight: 500;
 }
+
+.actions a{
+    text-decoration: none;
+    color: #000;
+}
