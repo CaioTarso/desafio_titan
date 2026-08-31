@@ -90,12 +90,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
 
         if ($created) {
-            header('Location: /?page=dashboard');
-            exit;
-        }
+        $_SESSION['success'] = "Serviço cadastrado com sucesso!";
 
-        $error = "Não foi possível cadastrar o serviço.";
-        $page = 'createservice';
+        header('Location: /?page=dashboard');
+        exit;
+    }
+
+        $_SESSION['error'] = "Não foi possível cadastrar o serviço.";
+
+        header('Location: /?page=createservice');
+        exit;
     }
 
 

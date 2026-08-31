@@ -19,6 +19,20 @@
     </header>
 
     <div class="container">
+
+       <?php if (isset($_SESSION['success'])): ?>
+
+            <div class="success-message">
+                <i class="material-icons">check_circle</i>
+                <?= htmlspecialchars($_SESSION['success']) ?>
+            </div>
+
+            <?php unset($_SESSION['success']); ?>
+
+        <?php endif; ?>   
+
+
+
         <div class="dash-elements">
             <div class="dash-icon">
                 <i class="material-icons">dashboard</i>

@@ -3,12 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/createservice.css">
     <title>Criar Serviço</title>
 </head>
 <body>
-    <h2>Criar Serviço</h2>
+    <div class="container">
+        <?php if (isset($_SESSION['error'])): ?>
 
-    <div class="info">
+            <div class="error-message">
+                <i class="material-icons">error</i>
+
+                <span>
+                    <?= htmlspecialchars($_SESSION['error']) ?>
+                </span>
+            </div>
+
+            <?php unset($_SESSION['error']); ?>
+
+        <?php endif; ?>
+        <h1>Cadastrar Serviço</h1>
+        
+        <div class="info">
             
             <form action="/" method="POST">
 
@@ -63,3 +79,5 @@
     </div>
 </body>
 </html>
+
+
