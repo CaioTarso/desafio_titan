@@ -17,6 +17,10 @@ class ServiceController {
         return $this->serviceRepository->getAll();
     }
 
+    public function getServiceById($id) {
+        return $this->serviceRepository->getById($id);
+    }
+
     public function createService($description, $price, $user_id_user) {
 
       $service = new Service (
@@ -26,6 +30,20 @@ class ServiceController {
       );
 
       return $this->serviceRepository->create($service);
+    }
+
+    public function updateService($service_id, $description, $price){
+       
+       $serviceexists = $this->getServiceById($service_id);
+
+       if(!$serviceexists) {
+         return false;
+       }
+
+       $service = new Service($description, $price, $serviceexists['user_id_user'], $service_id);
+
+       return $this->serviceRepository->update($service);
+       
     }
 }
 

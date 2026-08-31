@@ -76,6 +76,35 @@
                         <?php endif; ?>
                     </td>
 
+                    <td class="actions">
+
+                                <a
+                                    href="/?page=editservice&id=<?= $service['id_service'] ?>"
+                                    title="Editar"
+                                >
+                                    <i class="material-icons">edit</i>
+                                </a>
+
+                                <a
+                                    href="/?page=deleteservice&id=<?= $service['id_service'] ?>"
+                                    title="Excluir"
+                                >
+                                    <i class="material-icons">delete</i>
+                                </a>
+
+                                <?php if (!$service['finished_at']): ?>
+
+                                    <a
+                                        href="/?page=finishservice&id=<?= $service['id_service'] ?>"
+                                        title="Finalizar"
+                                    >
+                                        <i class="material-icons">check_circle</i>
+                                    </a>
+
+                                <?php endif; ?>
+
+                            </td>
+
                 </tr>
 
             <?php endforeach; ?>

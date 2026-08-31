@@ -23,6 +23,23 @@ class ServiceRepository {
         return $stmt->execute();
     }
 
+    public function update(Service $service) {
+        $stmt = $this->pdo->prepare("
+            UPDATE service
+            SET
+              description = :description,
+              price = :price
+            WHERE id_service = :id
+        ");
+
+        $stmt->bindParam(':description', $service->description);
+        $stmt->bindParam(':price', $service->price);
+        $stmt->bindParam(':id', $service->id_service);
+
+        return $stmt->execute();
+
+    }
+
 
 
     public function getAll()  {
@@ -39,6 +56,18 @@ class ServiceRepository {
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getById($id) {
+
+        $stmt = $this->pdo->prepare("
+          SELECT * FROM service WHERE id_service = :id
+        ");
+        
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 }
 

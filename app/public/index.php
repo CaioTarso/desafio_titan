@@ -102,6 +102,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    if ($action === 'updateservice') {
+
+    if (!isset($_SESSION['user'])) {
+        header('Location: /?page=login');
+        exit;
+    }
+
+    $service_id = $_POST['id_service'];
+    $description = $_POST['description'];
+    $price = $_POST['price'];
+
+    $updated = $serviceController->updateService(
+        $service_id,
+        $description,
+        $price
+    );
+
+    if ($updated) {
+        $_SESSION['success'] = "Serviço atualizado com sucesso!";
+
+        header('Location: /?page=dashboard');
+        exit;
+    }
+
+    $_SESSION['error'] = "Não foi possível atualizar o serviço.";
+
+    header('Location: /?page=editservice&id=' . $service_id);
+    exit;
+}
+
 
         
 }
@@ -135,6 +165,32 @@ if ($page === 'createservice') {
     require_once '../views/createservice.php';
     exit;
 }
+
+if ($page === 'editservice') {
+
+    if (!isset($_SESSION['user'])) {
+        header('Location: /?page=login');
+        exit;
+    }
+
+    $service_id = $_GET['id'] ?? null;
+
+    if (!$service_id) {
+        header('Location: /?page=dashboard');
+        exit;
+    }
+
+    $service = $serviceController->getServiceById($service_id);
+
+    if (!$service) {
+        header('Location: /?page=dashboard');
+        exit;
+    }
+
+    require_once '../views/updateservice.php';
+    exit;
+}
+
 
 
 
