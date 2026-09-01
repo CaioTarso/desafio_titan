@@ -212,8 +212,17 @@ if ($page === 'dashboard') {
         exit;
     }
 
-    $services = $serviceController->getAllServices();
+    $filters = [
+        'description' => $_GET['description'] ?? '',
+        'start_date' => $_GET['start_date'] ?? '',
+        'end_date' => $_GET['end_date'] ?? '',
+        'status' => $_GET['status'] ?? '',
+        'user_id' => $_GET['user_id'] ?? ''
+    ];
 
+    $services = $serviceController->getAllServices($filters);
+
+    $users = $userRepository->getAllUsers();
 
     require_once '../views/dashboard.php';
     exit;

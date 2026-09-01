@@ -57,7 +57,115 @@
 
 
         </div>
+       
+        <div class="filter-area"> 
+            <div class="filter-icon">
+                <i class="material-icons">filter_alt</i>
+                <h2>Filtro</h2>
 
+            </div>
+
+            <div class="filters">
+                
+                <form action="/" method="GET">
+
+                    <input type="hidden" name="page" value="dashboard">
+
+                    <div class="filter-group">
+                        <label for="description">Descrição</label>
+
+                        <input
+                            type="text"
+                            id="description"
+                            name="description"
+                            value="<?= htmlspecialchars($_GET['description'] ?? '') ?>"
+                            placeholder="Buscar serviço..."
+                        >
+                    </div>
+
+
+                    <div class="filter-group">
+                        <label for="start_date">Data de início</label>
+
+                        <input
+                            type="date"
+                            id="start_date"
+                            name="start_date"
+                            value="<?= htmlspecialchars($_GET['start_date'] ?? '') ?>"
+                        >
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="end_date">Data final</label>
+
+                        <input
+                            type="date"
+                            id="end_date"
+                            name="end_date"
+                            value="<?= htmlspecialchars($_GET['end_date'] ?? '') ?>"
+                        >
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="status">Status</label>
+
+                        <select id="status" name="status">
+                            <option value="">Todos</option>
+
+                            <option
+                                value="pending"
+                                <?= ($_GET['status'] ?? '') === 'pending' ? 'selected' : '' ?>
+                            >
+                                Pendente
+                            </option>
+
+                            <option
+                                value="finished"
+                                <?= ($_GET['status'] ?? '') === 'finished' ? 'selected' : '' ?>
+                            >
+                                Finalizado
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="user_id">Usuário</label>
+
+                        <select id="user_id" name="user_id">
+
+                            <option value="">Todos</option>
+
+                            <?php foreach ($users as $user): ?>
+
+                                <option
+                                    value="<?= $user['id_user'] ?>"
+                                    <?= ($_GET['user_id'] ?? '') == $user['id_user'] ? 'selected' : '' ?>
+                                >
+                                    <?= htmlspecialchars($user['name']) ?>
+                                </option>
+
+                            <?php endforeach; ?>
+
+                        </select>
+
+                    </div>
+
+                    <div class="filter-actions">
+
+                        <button type="submit">
+                            Filtrar
+                        </button>
+
+                        <a href="/?page=dashboard">
+                            Limpar
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
 
         <table>
             <thead>
@@ -100,7 +208,7 @@
                                     <i class="material-icons">edit</i>
                                 </a>
 
-                                <form action="/" method="POST" class="delete-form">
+                                <form action="/" method="POST" class="delete-form" onsubmit="return confirm('Tem certeza que deseja excluir este serviço?');">
 
                                     <input
                                         type="hidden"
@@ -114,7 +222,7 @@
                                         value="<?= $service['id_service'] ?>"
                                     >
 
-                                    <button type="submit" title="Excluir" class="action-button delete">
+                                    <button type="submit" title="Excluir" class="action-button delete ">
                                         <i class="material-icons">delete</i>
                                     </button>
 

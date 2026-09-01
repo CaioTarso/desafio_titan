@@ -14,8 +14,8 @@ class ServiceController {
         $this->serviceRepository = $serviceRepository;
     }
 
-    public function getAllServices() {
-        return $this->serviceRepository->getAll();
+    public function getAllServices($filters = []) {
+        return $this->serviceRepository->getAll($filters);
     }
 
     public function getServiceById($id) {

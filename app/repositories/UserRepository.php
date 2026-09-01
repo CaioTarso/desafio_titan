@@ -34,6 +34,11 @@ class UserRepository {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getAllUsers() {
+        $stmt = $this->pdo->query("SELECT * FROM users");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
 
