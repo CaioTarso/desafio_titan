@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/updateservice.css">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <title>Editar Serviço</title>
 </head>
 

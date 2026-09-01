@@ -145,7 +145,63 @@ tbody tr:hover {
     font-weight: 500;
 }
 
-.actions a{
+.error-message {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 18px;
+    margin-bottom: 25px;
+    background-color: #fdecea;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background-color: transparent;
+    color: #333;
     text-decoration: none;
-    color: #000;
+    cursor: pointer;
+}
+
+.action-button i {
+    font-size: 21px;
+}
+
+.action-button.edit:hover {
+    color: #1976d2;
+}
+
+.action-button.delete:hover {
+    color: #d32f2f;
+}
+
+.action-button.finish:hover {
+    color: #2e7d32;
+}
+
+.delete-form {
+    margin: 0;
+    padding: 0;
+}
+
+.actions form button i {
+    font-size: 21px;
 }
