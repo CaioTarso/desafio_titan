@@ -71,13 +71,34 @@ class ServiceRepository {
     public function getById($id) {
 
         $stmt = $this->pdo->prepare("
-          SELECT * FROM service WHERE id_service = :id
+          SELECT
+            service.*,
+            users.name,
+            users.email
+        FROM service
+        INNER JOIN users
+            ON service.user_id_user = users.id_user
+        WHERE service.id_service = :id
         ");
         
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function finish(Service $service) {
+        $stmt = $this->pdo->prepare("
+            UPDATE service
+            SET finished_at = NOW(),
+            commission_user = :commission_user
+            WHERE id_service = :id
+        ");
+
+        $stmt->bindParam(':id', $service->id_service);
+        $stmt->bindParam(':commission_user', $service->commission_user);
+
+        return $stmt->execute();
     }
 }
 

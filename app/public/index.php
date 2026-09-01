@@ -132,7 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     header('Location: /?page=editservice&id=' . $service_id);
     exit;
-}
+    }
 
     if ($action === 'deleteservice') {
 
@@ -157,7 +157,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         header('Location: /?page=dashboard');
         exit;
-}
+    }
+       if ($action === 'finishservice') {
+
+        if (!isset($_SESSION['user'])) {
+            header('Location: /?page=login');
+            exit;
+        }
+
+        $service_id = $_POST['id_service'];
+        $user_id = $_SESSION['user']['id_user'];
+
+        $finished = $serviceController->finishService(
+            $service_id,
+            $user_id
+        );
+
+        if ($finished) {
+            $_SESSION['success'] = "Serviço finalizado com sucesso!";
+        } else {
+            $_SESSION['error'] = "Você não tem permissão para finalizar este serviço.";
+        }
+
+        if(!$finished){
+             $_SESSION['error'] = "Você não tem permissão para finalizar este serviço.";
+             header('Location: /?page=dashboard');
+             exit;
+        }
+
+        if($finished['email_sent']) {
+
+            $_SESSION['success'] = "Serviço finalizado com sucesso! E-mail enviado para o usuário.";
+        } else {
+            $_SESSION['success'] = "Serviço finalizado com sucesso, mas não foi possível enviar o e-mail para o usuário.";
+        }
+
+        header('Location: /?page=dashboard');
+        exit;
+    } 
 
 
         

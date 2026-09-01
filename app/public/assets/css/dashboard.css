@@ -98,9 +98,7 @@ h2 {
 table {
     width: 100%;
     border-collapse: collapse;
-
     background-color: white;
-
     border-radius: 12px;
     overflow: hidden;
 
@@ -197,7 +195,7 @@ tbody tr:hover {
     color: #2e7d32;
 }
 
-.delete-form {
+.delete-form, .finish-form {
     margin: 0;
     padding: 0;
 }

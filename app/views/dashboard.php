@@ -79,7 +79,7 @@
                 <tr>
                     <td><?= $service['id_service'] ?></td>
                     <td><?= $service['description'] ?></td>
-                    <td>R$ <?= $service['price'] ?></td>
+                    <td>R$ <?= number_format($service['price'], 2, ',', '.') ?></td>
                     <td><?= $service['name'] ?></td>
 
                     <td>
@@ -122,13 +122,18 @@
 
                                 <?php if (!$service['finished_at']): ?>
 
-                                    <a
-                                        href="/?page=finishservice&id=<?= $service['id_service'] ?>"
-                                        title="Finalizar"
-                                        class="action-button finish"
-                                    >
-                                        <i class="material-icons">check_circle</i>
-                                    </a>
+                                    <form action="/" method="POST" class="finish-form">
+                                        <input type="hidden" name="action" value="finishservice">
+                                        <input
+                                            type="hidden"
+                                            name="id_service"
+                                            value="<?= $service['id_service'] ?>"
+                                        >
+
+                                        <button type="submit" title="Finalizar" class="action-button finish">
+                                            <i class="material-icons">check_circle</i>
+                                        </button>
+                                    </form>
 
                                 <?php endif; ?>
 

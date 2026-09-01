@@ -2,6 +2,7 @@
 
 require_once '../models/Service.php';
 require_once '../repositories/ServiceRepository.php';
+require_once '../services/FinishedServiceEmail.php';
 
 
 
@@ -63,6 +64,58 @@ class ServiceController {
     }
 
        return $this->serviceRepository->delete($service_id);
+    }
+
+    public function finishService($service_id, $user_id) {
+
+        $serviceexists = $this->getServiceById($service_id);
+
+       if(!$serviceexists) {
+         return false;
+       }
+
+       if ($serviceexists['user_id_user'] != $user_id) {
+        return false;
+    }
+
+      if($serviceexists['finished_at']){
+        return false;
+      }
+
+      $price = $serviceexists['price'];
+
+      if ($price <= 1000) {
+        $commission = $price * 0.05;
+      } else if ($price <= 10000) {
+        $commission = $price * 0.10;
+      } else {
+        $commission = $price * 0.20;
+      }
+
+      $service = new Service(
+        $serviceexists['description'],
+        $serviceexists['price'],
+        $serviceexists['user_id_user'],
+        $service_id
+      );
+
+      $service->commission_user = $commission;
+
+      $finished = $this->serviceRepository->finish($service);
+
+      if(!$finished) {
+        return false;
+      }
+
+      FinishedServiceEmail::send($serviceexists, $commission);
+
+      
+
+      return [
+        'success' => true,
+        'commission' => $commission,
+        'service' => $serviceexists
+      ];
     }
 }
 
