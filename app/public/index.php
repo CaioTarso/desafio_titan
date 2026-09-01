@@ -112,11 +112,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $service_id = $_POST['id_service'];
     $description = $_POST['description'];
     $price = $_POST['price'];
+    $user_id = $_SESSION['user']['id_user'];
 
     $updated = $serviceController->updateService(
         $service_id,
         $description,
-        $price
+        $price,
+        $user_id
     );
 
     if ($updated) {
@@ -130,6 +132,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     header('Location: /?page=editservice&id=' . $service_id);
     exit;
+}
+
+    if ($action === 'deleteservice') {
+
+        if (!isset($_SESSION['user'])) {
+            header('Location: /?page=login');
+            exit;
+        }
+
+        $service_id = $_POST['id_service'];
+        $user_id = $_SESSION['user']['id_user'];
+
+        $deleted = $serviceController->deleteService(
+            $service_id,
+            $user_id
+        );
+
+        if ($deleted) {
+            $_SESSION['success'] = "Serviço excluído com sucesso!";
+        } else {
+            $_SESSION['error'] = "Você não tem permissão para excluir este serviço.";
+        }
+
+        header('Location: /?page=dashboard');
+        exit;
 }
 
 
@@ -190,9 +217,6 @@ if ($page === 'editservice') {
     require_once '../views/updateservice.php';
     exit;
 }
-
-
-
 
 
 

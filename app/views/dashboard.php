@@ -29,7 +29,21 @@
 
             <?php unset($_SESSION['success']); ?>
 
-        <?php endif; ?>   
+        <?php endif; ?>
+        
+        <?php if (isset($_SESSION['error'])): ?>
+
+            <div class="error-message">
+                <i class="material-icons">error</i>
+
+                <span>
+                    <?= htmlspecialchars($_SESSION['error']) ?>
+                </span>
+            </div>
+
+            <?php unset($_SESSION['error']); ?>
+
+        <?php endif; ?>
 
 
 
@@ -81,22 +95,37 @@
                                 <a
                                     href="/?page=editservice&id=<?= $service['id_service'] ?>"
                                     title="Editar"
+                                    class="action-button edit"
                                 >
                                     <i class="material-icons">edit</i>
                                 </a>
 
-                                <a
-                                    href="/?page=deleteservice&id=<?= $service['id_service'] ?>"
-                                    title="Excluir"
-                                >
-                                    <i class="material-icons">delete</i>
-                                </a>
+                                <form action="/" method="POST" class="delete-form">
+
+                                    <input
+                                        type="hidden"
+                                        name="action"
+                                        value="deleteservice"
+                                    >
+
+                                    <input
+                                        type="hidden"
+                                        name="id_service"
+                                        value="<?= $service['id_service'] ?>"
+                                    >
+
+                                    <button type="submit" title="Excluir" class="action-button delete">
+                                        <i class="material-icons">delete</i>
+                                    </button>
+
+                                </form>
 
                                 <?php if (!$service['finished_at']): ?>
 
                                     <a
                                         href="/?page=finishservice&id=<?= $service['id_service'] ?>"
                                         title="Finalizar"
+                                        class="action-button finish"
                                     >
                                         <i class="material-icons">check_circle</i>
                                     </a>

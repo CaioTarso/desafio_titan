@@ -40,6 +40,16 @@ class ServiceRepository {
 
     }
 
+    public function delete($service_id) {
+        $stmt = $this->pdo->prepare("
+           DELETE FROM service WHERE id_service = :id
+        ");
+
+        $stmt->bindParam(':id', $service_id);
+
+        return $stmt->execute();
+    }
+
 
 
     public function getAll()  {

@@ -32,7 +32,7 @@ class ServiceController {
       return $this->serviceRepository->create($service);
     }
 
-    public function updateService($service_id, $description, $price){
+    public function updateService($service_id, $description, $price, $user_id){
        
        $serviceexists = $this->getServiceById($service_id);
 
@@ -40,10 +40,29 @@ class ServiceController {
          return false;
        }
 
+       if ($serviceexists['user_id_user'] != $user_id) {
+        return false;
+    }
+
        $service = new Service($description, $price, $serviceexists['user_id_user'], $service_id);
 
        return $this->serviceRepository->update($service);
        
+    }
+
+    public function deleteService($service_id, $user_id){
+
+        $serviceexists = $this->getServiceById($service_id);
+
+       if(!$serviceexists) {
+         return false;
+       }
+
+       if ($serviceexists['user_id_user'] != $user_id) {
+        return false;
+    }
+
+       return $this->serviceRepository->delete($service_id);
     }
 }
 
