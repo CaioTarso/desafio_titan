@@ -18,6 +18,14 @@ class ServiceController {
         return $this->serviceRepository->getAll($filters);
     }
 
+    public function getPendingServices($user_id, $limit) {
+        return $this->serviceRepository->getPendingServices($user_id, $limit);
+    }
+
+    public function getTotalMadeByUserId($user_id, $limit) {
+        return $this->serviceRepository->getTotalMadeByUserId($user_id, $limit);
+    }
+
     public function getServiceById($id) {
         return $this->serviceRepository->getById($id);
     }

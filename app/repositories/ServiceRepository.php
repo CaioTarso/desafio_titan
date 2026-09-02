@@ -50,6 +50,36 @@ class ServiceRepository {
         return $stmt->execute();
     }
 
+    public function getPendingServices($user_id, $limit) {
+        $stmt = $this->pdo->prepare("
+            SELECT id_service, description FROM service
+            WHERE user_id_user = :user_id AND finished_at IS NULL
+            ORDER BY created_at DESC
+            LIMIT :limit   
+        ");
+
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTotalMadeByUserId($user_id, $limit) {
+        $stmt = $this->pdo->prepare("
+            SELECT SUM(price) as total_made FROM service
+            WHERE user_id_user = :user_id AND finished_at IS NOT NULL
+            ORDER BY finished_at DESC
+            LIMIT :limit
+        ");
+
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT); 
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC)['total_made'];
+    }
+
 
 
     public function getAll($filters = [])
@@ -113,7 +143,7 @@ class ServiceRepository {
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+
     public function getById($id) {
 
         $stmt = $this->pdo->prepare("

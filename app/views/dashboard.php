@@ -54,8 +54,55 @@
             </div>
 
             <a class="button-create"  href="/?page=createservice">Criar serviço</a>
+        </div>
 
+        <div class="dash-user-infos">
 
+            <div class="info-card">
+              
+                <div class="info-card-header">
+                    <span class="material-icons">attach_money</span>
+                    <h2 class="info-title">Total arrecadado por você</h2>
+                </div>
+
+                <div class="total-card">
+                    R$ <?= number_format($totalMade, 2, ',', ',') ?>
+                </div>
+       
+            </div>
+
+            <div class="info-card">
+              
+                <div class="info-card-header">
+                    <span class="material-icons">pending_actions</span>
+                    <h2 class="info-title">Seus serviços pendentes</h2>
+                </div>
+
+                <div class="services-card">
+                   <?php if (empty($pendingServices)): ?>
+
+                        <p>Você não possui serviços pendentes.</p>
+
+                        <?php else: ?>
+
+                            <?php foreach ($pendingServices as $service): ?>
+
+                                <div class="pending-service">
+                                    <span>
+                                    ID: <?= htmlspecialchars($service['id_service']) ?>
+                                    </span>
+
+                                    <span>
+                                    Descrição:  <?= htmlspecialchars($service['description']) ?>
+                                    </span>
+                                </div>
+
+                            <?php endforeach; ?>
+
+                     <?php endif; ?>
+                </div>
+            </div>
+        
         </div>
        
         <div class="filter-area"> 
@@ -176,7 +223,7 @@
                     <th>Usuário</th>
                   
                     <th>Status</th>
-                    <th>Ações</th>
+                    <th class="actions-header">Ações</th>
                 </tr>
             </thead>
 

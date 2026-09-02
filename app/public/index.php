@@ -212,6 +212,8 @@ if ($page === 'dashboard') {
         exit;
     }
 
+    $user_id = $_SESSION['user']['id_user'];
+
     $filters = [
         'description' => $_GET['description'] ?? '',
         'start_date' => $_GET['start_date'] ?? '',
@@ -223,6 +225,10 @@ if ($page === 'dashboard') {
     $services = $serviceController->getAllServices($filters);
 
     $users = $userRepository->getAllUsers();
+
+    $totalMade = $serviceController->getTotalMadeByUserId($user_id, 5);
+
+    $pendingServices = $serviceController->getPendingServices($user_id, 5);
 
     require_once '../views/dashboard.php';
     exit;
